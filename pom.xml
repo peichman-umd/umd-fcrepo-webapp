@@ -120,6 +120,39 @@
           </archive>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.cargo</groupId>
+        <artifactId>cargo-maven2-plugin</artifactId>
+        <version>1.8.1</version>
+        <configuration>
+          <container>
+            <containerId>tomcat7x</containerId>
+            <!-- download zip url -->
+            <zipUrlInstaller>
+              <url>http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.88/bin/apache-tomcat-7.0.88.zip</url>
+              <downloadDir>${project.build.directory}/downloads</downloadDir>
+              <extractDir>${project.build.directory}/extracts</extractDir>
+            </zipUrlInstaller>
+            <systemProperties>
+              <fcrepo.modeshape.configuration>repository.json</fcrepo.modeshape.configuration>
+            </systemProperties>
+          </container>
+          <configuration>
+            <properties>
+              <!-- TODO: need fcrepo.modeshape.configuration (and possibly
+                   other) config settings files for running the webapp -->
+              <cargo.servlet.users>user:user:fedoraUser</cargo.servlet.users>
+            </properties>
+          </configuration>
+          <deployables>
+            <deployable>
+              <properties>
+                <context>/fcrepo</context>
+              </properties>
+            </deployable>
+          </deployables>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
