@@ -11,8 +11,34 @@
     <param-value>WEB-INF/classes/spring/repository.xml</param-value>
   </context-param>
 
+  <context-param>
+    <param-name>shiroEnvironmentClass</param-name>
+    <param-value>org.apache.shiro.web.env.DefaultWebEnvironment</param-value>
+  </context-param>
+
   <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
+  </listener>
+
+  <!-- To allow request object to be wired to WebACAuthorizingRealm -->
+  <listener>
+    <listener-class>
+      org.springframework.web.context.request.RequestContextListener
+    </listener-class>
+  </listener>
+
+  <!-- The filter-name matches name of a 'shiroFilter' bean inside applicationContext.xml -->
+  <filter>
+    <filter-name>shiroFilter</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    <init-param>
+      <param-name>targetFilterLifecycle</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+
+  <listener>
+    <listener-class>org.fcrepo.http.commons.FedoraContextLoaderListener</listener-class>
   </listener>
 
   <security-role>
@@ -21,7 +47,7 @@
   <security-role>
     <role-name>cn=Application_Roles:Libraries:FCREPO:FCREPO-User,ou=grouper,ou=group,dc=umd,dc=edu</role-name>
   </security-role>
-    
+
   <servlet>
     <servlet-name>jersey-servlet</servlet-name>
     <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
@@ -54,6 +80,14 @@
     <filter-name>ETagFilter</filter-name>
     <filter-class>org.springframework.web.filter.ShallowEtagHeaderFilter</filter-class>
   </filter>
+
+  <!-- Make sure any request you want accessible to Shiro is filtered. /* catches all -->
+  <!-- requests.  Usually this filter mapping is defined first (before all others) to -->
+  <!-- ensure that Shiro works in subsequent filters in the filter chain:             -->
+  <filter-mapping>
+      <filter-name>shiroFilter</filter-name>
+      <url-pattern>/rest/*</url-pattern>
+  </filter-mapping>
 
   <filter-mapping>
     <filter-name>ETagFilter</filter-name>

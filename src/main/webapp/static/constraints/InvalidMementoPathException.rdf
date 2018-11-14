@@ -6,11 +6,11 @@
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-    <owl:Ontology rdf:about="static/constraints/ConstraintNotImplementedException">
-        <rdfs:label xml:lang="en">Cannot Create Resource</rdfs:label>
-        <rdfs:comment xml:lang="en">Fedora is unable to create the requested resource.  Fedora will
-          not create a resource of type LDP Resource.  The type specified must be a subclass of
-          LDP Resource.
+    <owl:Ontology rdf:about="static/constraints/InvalidMementoPathException">
+        <rdfs:label xml:lang="en">Invalid Memento Path Exception</rdfs:label>
+        <rdfs:comment xml:lang="en">
+          Fedora cannot handle versioning requests with a malformed memento ID.
+          Memento ID is system generated, which is a timestamp in yyyyMMddHHmmss format.
         </rdfs:comment>
     </owl:Ontology>
 </rdf:RDF>

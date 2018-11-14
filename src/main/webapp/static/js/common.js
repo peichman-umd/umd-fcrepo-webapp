@@ -74,12 +74,23 @@
       const update_file = document.getElementById('binary_payload').files[0];
       const reader = new FileReader();
       headers.push(['Content-Disposition', 'attachment; filename=\"' + update_file.name + '\"']);
+      headers.push(['Link', '<http://www.w3.org/ns/ldp#NonRDFSource>; rel=\"type\"']);
       headers.push(['Content-Type', update_file.type || 'application/octet-stream']);
       reader.onload = function(e) {
           fn(method, url, headers, e.target.result);
       };
       reader.readAsArrayBuffer(update_file);
     } else {
+      if (mixin == 'basic container') {
+        headers.push(['Link', '<http://www.w3.org/ns/ldp#BasicContainer>; rel=\"type\"']);
+      } else if (mixin == 'direct container') {
+        headers.push(['Link', '<http://www.w3.org/ns/ldp#DirectContainer>; rel=\"type\"']);
+      } else if (mixin == 'indirect container') {
+        headers.push(['Link', '<http://www.w3.org/ns/ldp#IndirectContainer>; rel=\"type\"']);
+      } else {
+        alert("Unrecognized type: " + mixin);
+        return;
+      }
       const turtle = document.getElementById('turtle_payload');
       if (turtle && turtle.value) {
         headers.push(['Content-Type', 'text/turtle']);
@@ -187,13 +198,10 @@
 
   function createVersionSnapshot(e) {
       const uri = document.getElementById('main').getAttribute('resource');
-      var name = document.getElementById('version_id').value.trim();
-      if (!name) {
-          const d = new Date();
-          name = 'version.' + d.getFullYear().toString() + (d.getMonth()+1).toString() + d.getDate().toString() + d.getHours() + d.getMinutes() + d.getSeconds();
-      }
+      const d = new Date();
+      const name = 'version.' + d.getFullYear().toString() + (d.getMonth()+1).toString() + d.getDate().toString() + d.getHours() + d.getMinutes() + d.getSeconds();
 
-      http('POST', uri + '/fcr:versions', [['Slug', name]], function(res) {
+      http('POST', uri + '/fcr:versions', function(res) {
         if (res.status == 201) {
           window.location = uri + '/fcr:versions';
         } else {
@@ -267,6 +275,38 @@
       (document.getElementById('binary_update_content') || {}).disabled = false;
   }
 
+  function enableVersioning(e) {
+      const url = document.getElementById('main').getAttribute('resource');
+      const d = new Date();
+      const expires = (new Date(d - 1000000)).toUTCString();
+      const get_headers = [
+          ['Prefer', 'return=representation; omit="http://fedora.info/definitions/v4/repository#ServerManaged"'],
+          ['Accept', 'application/ld+json'],
+          ['Cache-Control', 'no-cache, no-store, max-age=0'],
+          ['Expires', expires]
+      ];
+      const put_headers = [
+          ['Prefer', 'handling=lenient; received="minimal"'],
+          ['Content-Type', 'application/ld+json'],
+          ['Link', '<http://mementoweb.org/ns#OriginalResource>; rel="type"']
+      ];
+      http('GET', url, get_headers, function(res) {
+          if (res.status == 200) {
+              var body = res.responseText;
+              http('PUT', url, put_headers, body, function(res) {
+                  if (res.status == 204) {
+                      window.location.reload(true);
+                  } else {
+                      ajaxErrorHandler(res, 'Error');
+                  }
+              });
+          } else {
+              ajaxErrorHandler(res, 'Error');
+          }
+      });
+      e.preventDefault();
+  }
+
   ready(function() {
       listen('new_mixin', 'change', function(e) {
         document.getElementById('binary_payload_container').style.display = e.target.value == 'binary' ? 'block' : 'none';
@@ -294,6 +334,7 @@
       listen('action_revert', 'submit', patchAndReload);
       listen('action_remove_version', 'submit', removeVersion);
       listen('action_create_version', 'submit', createVersionSnapshot);
+      listen('action_enable_version', 'submit', enableVersioning);
       listen('action_update_file', 'submit', updateFile);
       listen('update_rbacl', 'submit', updateAccessRoles);
 
