@@ -8,7 +8,7 @@
 
   <groupId>edu.umd.lib</groupId>
   <artifactId>umd-fcrepo-webapp</artifactId>
-  <name>Fedora Repository Deployable Web Application</name>
+  <name>UMD Fedora Repository Deployable Web Application</name>
   <description>The Fedora web application</description>
   <version>2.5.0-SNAPSHOT</version>
   <packaging>war</packaging>
@@ -19,6 +19,7 @@
     <pgsql.version>9.4.1211</pgsql.version>
     <spring.version>4.3.18.RELEASE</spring.version>
     <jersey.version>2.24</jersey.version>
+    <java.cas.client.version>3.6.0</java.cas.client.version>
   </properties>
 
   <distributionManagement>
@@ -87,6 +88,18 @@
       <artifactId>spring-web</artifactId>
       <version>${spring.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.jasig.cas.client</groupId>
+      <artifactId>cas-client-core</artifactId>
+      <version>${java.cas.client.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -146,15 +159,13 @@
           </container>
           <configuration>
             <properties>
-              <!-- TODO: need fcrepo.modeshape.configuration (and possibly
-                   other) config settings files for running the webapp -->
               <cargo.servlet.users>user:user:fedoraUser</cargo.servlet.users>
             </properties>
           </configuration>
           <deployables>
             <deployable>
               <properties>
-                <context>/fcrepo</context>
+                <context>/</context>
               </properties>
             </deployable>
           </deployables>
