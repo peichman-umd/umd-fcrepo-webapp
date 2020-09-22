@@ -134,7 +134,14 @@
               <extractDir>${project.build.directory}/extracts</extractDir>
             </zipUrlInstaller>
             <systemProperties>
-              <fcrepo.modeshape.configuration>repository.json</fcrepo.modeshape.configuration>
+              <fcrepo.modeshape.configuration>file:${project.basedir}/repository.json</fcrepo.modeshape.configuration>
+              <!-- logback.configurationFile>logback.xml</logback.configurationFile -->
+              <fcrepo.postgresql.host>localhost</fcrepo.postgresql.host>
+              <fcrepo.postgresql.port>5432</fcrepo.postgresql.port>
+              <fcrepo.postgresql.username>fcrepo</fcrepo.postgresql.username>
+              <fcrepo.postgresql.password>fcrepo</fcrepo.postgresql.password>
+              <fcrepo.spring.configuration>file:${project.basedir}/spring.xml</fcrepo.spring.configuration>
+              <fcrepo.binary.directory>${project.build.directory}/binaries</fcrepo.binary.directory>
             </systemProperties>
           </container>
           <configuration>
