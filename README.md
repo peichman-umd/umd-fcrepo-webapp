@@ -96,6 +96,12 @@ use with the [umd-fcrepo-docker] stack:
 docker build -t docker.lib.umd.edu/fcrepo-webapp .
 ```
 
+## UML Test
+
+Testing the PlantUML image generation service:
+
+![filter diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.github.com/peichman-umd/umd-fcrepo-webapp/plantuml-test/umd-fcrepo-webapp.txt&fmt=svg)
+
 ## Special Thanks
 
 This repository is based on the [Amherst College custom Fedora build](https://gitlab.amherst.edu/acdc/amherst-fedora-webapp) created and maintained by Aaron Coburn and Bethany Seeger.
