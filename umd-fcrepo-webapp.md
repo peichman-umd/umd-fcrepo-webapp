@@ -1,12 +1,12 @@
 <!--
 @startuml
 start
-:CAS Single Sign Out Filter;
+:CAS Single Sign Out;
 if (request URI matches /user/*) then (yes)
-:CAS Authentication Filter;
+:CAS Authentication;
 else (no)
 endif
-:CAS Validation Filter;
+:CAS Validation;
 :CAS HTTP Request Wrapper;
 :JWT Bearer Token AuthNZ;
 if (request URI matches /user/* OR /rest/*) then (yes)
