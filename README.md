@@ -118,7 +118,7 @@ endif
 stop
 @enduml
 -->
-![filter diagram](http://www.plantuml.com/plantuml/proxy?n=2&cache=no&src=https://raw.github.com/peichman-umd/umd-fcrepo-webapp/plantuml-test/README.md&fmt=svg)
+![filter diagram](http://www.plantuml.com/plantuml/proxy?n=3&cache=no&src=https://raw.github.com/peichman-umd/umd-fcrepo-webapp/plantuml-test/README.md&fmt=svg)
 
 ## Special Thanks
 
