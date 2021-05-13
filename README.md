@@ -105,7 +105,7 @@ Testing the PlantUML image generation service:
 start
 :CAS Single Sign Out;
 if (request URI matches /user/*) then (yes)
-:CAS Authentication;
+:CAS AuthN;
 else (no)
 endif
 :CAS Validation;
@@ -118,7 +118,7 @@ endif
 stop
 @enduml
 -->
-![filter diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/peichman-umd/umd-fcrepo-webapp/plantuml-test/README.md&fmt=svg)
+![filter diagram](http://www.plantuml.com/plantuml/proxy?n=2&cache=no&src=https://raw.github.com/peichman-umd/umd-fcrepo-webapp/plantuml-test/README.md&fmt=svg)
 
 ## Special Thanks
 
