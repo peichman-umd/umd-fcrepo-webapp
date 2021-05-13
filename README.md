@@ -100,7 +100,7 @@ docker build -t docker.lib.umd.edu/fcrepo-webapp .
 
 Testing the PlantUML image generation service:
 
-![filter diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/peichman-umd/umd-fcrepo-webapp/plantuml-test/umd-fcrepo-webapp.txt&fmt=svg)
+![filter diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/peichman-umd/umd-fcrepo-webapp/plantuml-test/umd-fcrepo-webapp.md&fmt=svg)
 
 ## Special Thanks
 
