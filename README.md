@@ -100,7 +100,25 @@ docker build -t docker.lib.umd.edu/fcrepo-webapp .
 
 Testing the PlantUML image generation service:
 
-![filter diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/peichman-umd/umd-fcrepo-webapp/plantuml-test/umd-fcrepo-webapp.md&fmt=svg)
+<!--
+@startuml
+start
+:CAS Single Sign Out Filter;
+if (request URI matches /user/*) then (yes)
+:CAS Authentication;
+else (no)
+endif
+:CAS Validation;
+:CAS HTTP Request Wrapper;
+:JWT Bearer Token AuthNZ;
+if (request URI matches /user/* OR /rest/*) then (yes)
+:Fedora Roles;
+else (no)
+endif
+stop
+@enduml
+-->
+![filter diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/peichman-umd/umd-fcrepo-webapp/plantuml-test/README.md&fmt=svg)
 
 ## Special Thanks
 
