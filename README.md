@@ -103,7 +103,7 @@ Testing the PlantUML image generation service:
 <!--
 @startuml
 start
-:CAS Single Sign Out Filter;
+:CAS Single Sign Out;
 if (request URI matches /user/*) then (yes)
 :CAS Authentication;
 else (no)
