@@ -110,7 +110,7 @@ else (no)
 endif
 :CAS Validation;
 :CAS HTTP Request Wrapper;
-:JWT Bearer Token AuthNZ;
+:JWT Bearer Token AuthNZ [[src/main/java/edu/umd/lib/fcrepo/TokenAuthnzFilter.java]];
 if (request URI matches /user/* OR /rest/*) then (yes)
 :Fedora Roles;
 else (no)
