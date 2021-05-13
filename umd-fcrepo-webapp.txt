@@ -2,7 +2,7 @@
 start
 :CAS Single Sign Out Filter;
 if (request URI matches /user/*) then (yes)
-:CAS Authentication;
+:CAS Authentication Filter;
 else (no)
 endif
 :CAS Validation;
