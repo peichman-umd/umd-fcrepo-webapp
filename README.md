@@ -108,8 +108,8 @@ if (request URI matches /user/*) then (yes)
 :CAS AuthN;
 else (no)
 endif
-:CAS Validation;
-:CAS HTTP Request Wrapper;
+:CAS Validation/
+:CAS HTTP Request Wrapper/
 :JWT Bearer Token AuthNZ [[src/main/java/edu/umd/lib/fcrepo/TokenAuthnzFilter.java]];
 if (request URI matches /user/* OR /rest/*) then (yes)
 :Fedora Roles;
@@ -118,7 +118,7 @@ endif
 stop
 @enduml
 -->
-![filter diagram](http://www.plantuml.com/plantuml/proxy?n=3&cache=no&src=https://raw.github.com/peichman-umd/umd-fcrepo-webapp/plantuml-test/README.md&fmt=svg)
+![filter diagram](http://www.plantuml.com/plantuml/proxy?n=4&cache=no&src=https://raw.github.com/peichman-umd/umd-fcrepo-webapp/plantuml-test/README.md&fmt=svg)
 
 ## Special Thanks
 
